@@ -3,11 +3,13 @@ void main() {
   List<int> scores = [45, 67, 82, 49, 51, 78, 92, 30];
 
   // You code
-  List<int> passedStudents = scores.where((score) => score >= 50).toList();
-
-  // Printing the list of passed students and the number of students who passed
-  print(passedStudents);
-  print('${passedStudents.length} students passed');
+  int num=0;
+  for (int i=0; i<49; i++){
+    if(scores[i]>=50){
+      print('Student of ${scores[i]} has passed');
+      num+=1;
+    }
+  }
+  print("${num} has passed");
 }
 
-}
