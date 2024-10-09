@@ -4,7 +4,7 @@ void main() {
 
   // You code
   int num=0;
-  for (int i=0; i<49; i++){
+  for (int i=0; i<scores.length; i++){
     if(scores[i]>=50){
       print('Student of ${scores[i]} has passed');
       num+=1;
