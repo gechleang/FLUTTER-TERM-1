@@ -4,66 +4,77 @@ class Address {
   final String street;
   final String city;
   final String zipCode;
+  Address({required this.street, required this.city, required this.zipCode});
 
-  Address(this.street, this.city, this.zipCode);
+  @override
+  String toString() {
+    return "street: ${street} city:${city} zipCode:${zipCode}";
+  }
 }
 
 class Employee {
-  final String name;
-  final double baseSalary;
-  final List<Skill> skills;
-  final Address address;
-  final int yearsOfExperience;
+  final String? _name;
+  double _baseSalary = 40000;
+  List<Skill>? _skills;
+  Address? _address;
+  int? _yearsOfExperience;
 
-  Employee({
-    required this.name,
-    required this.baseSalary,
-    required this.skills,
-    required this.address,
-    required this.yearsOfExperience,
-  });
+  Employee(this._name, this._skills, this._address, this._yearsOfExperience);
 
-  double calculateSalary() {
-    double totalSalary = baseSalary + (yearsOfExperience * 12600);
-    for (var skill in skills) {
-      switch (skill) {
-        case Skill.FLUTTER:
-          totalSalary += 55000;
-          break;
-        case Skill.OTHER:
-          totalSalary += 1000;
-          break;
-        case Skill.DART:
-          
+  Employee.mobileDeveloper(
+      this._name, this._address, this._yearsOfExperience, this._skills);
+
+  String get name {
+    return _name!;
+  }
+
+  double get salary {
+    return this._baseSalary;
+  }
+
+  List<Skill> get skills {
+    return this._skills!;
+  }
+
+  Address get address => this._address!;
+  
+  int get yearOfExperience => this._yearsOfExperience!;
+
+
+  void yearExperience() {
+    this._baseSalary = _baseSalary + (_yearsOfExperience! * 2000);
+  }
+
+  void bonus() {
+    for (var skill in _skills!) {
+      if (skill == Skill.FLUTTER) {
+        this._baseSalary = _baseSalary + 5000;
+      } else if (skill == Skill.DART) {
+        this._baseSalary = _baseSalary + 3000;
+      } else {
+        this._baseSalary = _baseSalary + 1000;
       }
     }
-    return totalSalary;
   }
 
   void printDetails() {
-    print(
-        'Employee: $name, Base Salary: \$${baseSalary}, Skills: ${skills.join(', ')}, Address: ${address.street}, ${address.city}, ${address.zipCode}, Years of Experience: $yearsOfExperience, Total Salary: \$${calculateSalary()}');
-  }
-
-  factory Employee.mobileDeveloper(String name, double baseSalary, int yearsOfExperience) {
-    return Employee(
-        name: name,
-        baseSalary: baseSalary,
-        skills: [Skill.FLUTTER, Skill.DART],
-        address: Address("", "", ""), // Replace with actual address details
-        yearsOfExperience: yearsOfExperience);
+    print('Employee: $_name, Base Salary: \$${_baseSalary}');
+    print('Year experience: ${_yearsOfExperience} year');
+    print('Skill :$_skills');
+    print("Address :$_address");
   }
 }
 
 void main() {
-  var emp1 = Employee(
-      name: 'Gechleang',
-      baseSalary: 40000,
-      skills: [Skill.DART, Skill.OTHER],
-      address: Address("61", "Phnom Penh", "Cambodia"),
-      yearsOfExperience: 1);
+  Address address = Address(street: '61', city: 'PhnomPenh', zipCode: '');
+  var emp1 = Employee("Gechleang", [Skill.DART], address, 1);
+  emp1.yearExperience();
+  emp1.bonus();
   emp1.printDetails();
-
-  var emp2 = Employee.mobileDeveloper('Liya', 45000, 2);
+  print("\n");
+  
+  var emp2 = Employee.mobileDeveloper("Liya", address, 2, [Skill.FLUTTER]);
+  emp2.yearExperience();
+  emp2.bonus();
   emp2.printDetails();
 }
