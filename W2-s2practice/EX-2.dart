@@ -17,11 +17,6 @@ void main() {
   // ronanAccount.withdraw(50);
   // print(ronanAccount.balance); // Balance: $50
 
-  // try {
-  //   ronanAccount.withdraw(75); // This will throw an exception
-  // } catch (e) {
-  //   print(e); // Output: Insufficient balance for withdrawal!
-  // }
 
   // try {
   //   myBank.createAccount(100, 'Honlgy'); // This will throw an exception
